@@ -1,0 +1,70 @@
+/* CSS Document */
+*{
+	outline:none;
+	margin:0;
+	font-family:font-family:"Î¢ÈíÑÅºÚ,ËÎÌå";
+}
+
+body{
+	
+}
+
+.logoDiv{
+	margin:0 auto;
+	margin-top:20px;
+	width:620px;
+	height:100px;
+	background-image:url(../img/logo.jpg);
+}
+.loginTopDiv{
+	margin:0 auto;
+	margin-top:50px;
+	width:600px;
+	height:5px;
+	background-image:url(../img/login_top.png);
+	background-repeat:repeat-x;
+}
+.loginBottomDiv{
+	margin:0 auto;
+	width:600px;
+	height:5px;
+	background-image:url(../img/login_top.png);
+	background-repeat:repeat-x;
+}
+.loginDiv{
+	margin:0 auto;
+	width:600px;
+	height:300px;
+	background-color:#2F2E2E;
+}
+.emp_name,.emp_pwd{
+	margin-left:100px;
+	margin-top:50px;
+	border:1px #000000 solid;
+	width:350px;
+	height:40px;
+	font-size:24px;
+	text-indent:40px;
+	color:#666666;
+}
+.emp_name{
+	background-image:url(../img/userimg.png);
+	background-repeat:no-repeat;
+}
+
+.emp_pwd{
+	background-image:url(../img/pwdimg.png);
+	background-repeat:no-repeat;
+	margin-top:30px;	
+}
+
+.sub{
+	margin-top:30px;
+	margin-left:100px;
+	width:150px;
+	height:50px;
+	border:0;
+	background-color:#2F2E2E;
+	background-image:url(../img/loginbtn.png);
+	cursor:pointer;
+}

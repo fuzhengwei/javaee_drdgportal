@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.drdg.emp.dao.DrdgEmpMapper" >
+  <resultMap id="BaseResultMap" type="com.drdg.emp.bean.DrdgEmp" >
+    <id column="emp_id" property="empId" jdbcType="INTEGER" />
+    <result column="emp_name" property="empName" jdbcType="VARCHAR" />
+    <result column="emp_pwd" property="empPwd" jdbcType="VARCHAR" />
+    <result column="emp_power" property="empPower" jdbcType="CHAR" />
+    <result column="emp_date" property="empDate" jdbcType="DATE" />
+    <result column="emp_state" property="empState" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    emp_id, emp_name, emp_pwd, emp_power, emp_date, emp_state
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from drdg_emp
+    where emp_id = #{empId,jdbcType=INTEGER}
+  </select>
+  <select id="selectModelList" resultMap="BaseResultMap">
+	SELECT
+	emp_id,
+	emp_name,
+	emp_pwd,
+	case emp_power when '0' then '管理员' when '1' then '雇员' else '雇员' end as 'emp_power',
+	emp_date,
+	case emp_state when '0' then '开启' when '1' then '关闭' else '关闭' end as emp_state
+	FROM
+	drdg_emp
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from drdg_emp
+    where emp_id = #{empId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.drdg.emp.bean.DrdgEmp" >
+    insert into drdg_emp (emp_id, emp_name, emp_pwd, 
+      emp_power, emp_date, emp_state)
+    values (#{empId,jdbcType=INTEGER}, #{empName,jdbcType=VARCHAR}, #{empPwd,jdbcType=VARCHAR}, 
+      #{empPower,jdbcType=CHAR}, #{empDate,jdbcType=DATE}, #{empState,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.drdg.emp.bean.DrdgEmp" >
+    insert into drdg_emp
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="empId != null" >
+        emp_id,
+      </if>
+      <if test="empName != null" >
+        emp_name,
+      </if>
+      <if test="empPwd != null" >
+        emp_pwd,
+      </if>
+      <if test="empPower != null" >
+        emp_power,
+      </if>
+      <if test="empDate != null" >
+        emp_date,
+      </if>
+      <if test="empState != null" >
+        emp_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="empId != null" >
+        #{empId,jdbcType=INTEGER},
+      </if>
+      <if test="empName != null" >
+        #{empName,jdbcType=VARCHAR},
+      </if>
+      <if test="empPwd != null" >
+        #{empPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="empPower != null" >
+        #{empPower,jdbcType=CHAR},
+      </if>
+      <if test="empDate != null" >
+        #{empDate,jdbcType=DATE},
+      </if>
+      <if test="empState != null" >
+        #{empState,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.drdg.emp.bean.DrdgEmp" >
+    update drdg_emp
+    <set >
+      <if test="empName != null" >
+        emp_name = #{empName,jdbcType=VARCHAR},
+      </if>
+      <if test="empPwd != null" >
+        emp_pwd = #{empPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="empPower != null" >
+        emp_power = #{empPower,jdbcType=CHAR},
+      </if>
+      <if test="empDate != null" >
+        emp_date = #{empDate,jdbcType=DATE},
+      </if>
+      <if test="empState != null" >
+        emp_state = #{empState,jdbcType=CHAR},
+      </if>
+    </set>
+    where emp_id = #{empId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.drdg.emp.bean.DrdgEmp" >
+    update drdg_emp
+    set emp_name = #{empName,jdbcType=VARCHAR},
+      emp_pwd = #{empPwd,jdbcType=VARCHAR},
+      emp_power = #{empPower,jdbcType=CHAR},
+      emp_date = #{empDate,jdbcType=DATE},
+      emp_state = #{empState,jdbcType=CHAR}
+    where emp_id = #{empId,jdbcType=INTEGER}
+  </update>
+</mapper>

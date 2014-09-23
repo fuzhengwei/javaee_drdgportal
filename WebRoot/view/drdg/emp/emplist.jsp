@@ -22,10 +22,10 @@
 		<script type="text/javascript" src="view/res/jquery-easyui-1.4/jquery.easyui.min.js"></script>
 	</head>
 	<body>
-		<table id="dg" title="My Users" class="easyui-datagrid"
-			style="width: 700px; height: 250px" url="emp/doGetEmpList.do"
+		<table id="dg" class="easyui-datagrid"
+			style="width: 100%; " url="emp/doGetEmpList.do"
 			toolbar="#toolbar" pagination="true" rownumbers="true"
-			fitColumns="true" singleSelect="true">
+			fitColumns="true" singleSelect="true" data-options="panelHeight:'auto'">
 			<thead>
 				<tr>
 					<th field="empName" width="50" align="center">
@@ -63,12 +63,6 @@
 			<form id="fm" method="post" novalidate>
 				<div class="fitem">
 					<label>
-						雇员ID:
-					</label>
-					<input name="empId" class="easyui-textbox" required="true" data-options="editable:false">
-				</div>
-				<div class="fitem">
-					<label>
 						雇员姓名:
 					</label>
 					<input name="empName" class="easyui-textbox" required="true">
@@ -84,8 +78,8 @@
 						管理权限:
 					</label>
 					<select class="easyui-combobox" id="empPower" name="empPower" style="width: 90px;" data-options="editable:false,required:true,panelHeight:'auto'">
-						<option value="0" selected="selected">管理员</option>
-						<option value="1">普通雇员</option>
+						<option value="0">管理员</option>
+						<option value="1">雇员</option>
 					</select>
 				</div>
 				<div class="fitem">
@@ -94,7 +88,7 @@
 					</label>
 					<select class="easyui-combobox" id="empState" name="empState" style="width: 90px;" data-options="editable:false,required:true,panelHeight:'auto'">
 						<option value="0" >开启</option>
-						<option value="1" selected="selected">关闭</option>
+						<option value="1" >关闭</option>
 					</select>
 				</div>
 			</form>
@@ -117,10 +111,20 @@
 	}
 	function editUser() {
 		var row = $('#dg').datagrid('getSelected');
+		if("雇员" == row.empPower){
+			row.empPower = '1';
+		}else{
+			row.empPower = '0';
+		}
+		if("关闭"){
+			row.empState = '1';
+		}else{
+			row.empState = '0';
+		}
 		if (row) {
 			$('#dlg').dialog('open').dialog('setTitle', 'Edit User');
 			$('#fm').form('load', row);
-			url = 'emp/doUpdateEmp.do';
+			url = 'emp/doUpdateEmp.do?empId='+row.empId;
 		}
 	}
 	function saveUser() {

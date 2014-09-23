@@ -18,7 +18,7 @@
     from drdg_emp
     where emp_id = #{empId,jdbcType=INTEGER}
   </select>
-  <select id="selectModelList" resultMap="BaseResultMap">
+  <select id="selectModelList" resultMap="BaseResultMap" parameterType="com.drdg.util.bean.Page" >
 	SELECT
 	emp_id,
 	emp_name,
@@ -27,7 +27,11 @@
 	emp_date,
 	case emp_state when '0' then '开启' when '1' then '关闭' else '关闭' end as emp_state
 	FROM
-	drdg_emp
+	drdg_emp 
+	LIMIT #{firstResult,jdbcType=INTEGER},#{maxResult,jdbcType=INTEGER}
+  </select>
+  <select id="selectModelCount" resultType="Integer">
+  	SELECT count(*) FROM drdg_emp 
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from drdg_emp

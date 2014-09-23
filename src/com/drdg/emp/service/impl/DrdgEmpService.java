@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.drdg.emp.bean.DrdgEmp;
 import com.drdg.emp.dao.DrdgEmpMapper;
 import com.drdg.emp.service.IDrdgEmpService;
+import com.drdg.util.bean.Page;
 
 @Service("drdgEmpService")
 public class DrdgEmpService implements IDrdgEmpService {
@@ -23,8 +24,8 @@ public class DrdgEmpService implements IDrdgEmpService {
 		return drdgEmpMapper;
 	}
 	
-	public List<DrdgEmp> selectModelList() {
-		return drdgEmpMapper.selectModelList();
+	public List<DrdgEmp> selectModelList(Page page) {
+		return drdgEmpMapper.selectModelList(page);
 	}
 
 	public int insert(DrdgEmp record) {
@@ -33,6 +34,18 @@ public class DrdgEmpService implements IDrdgEmpService {
 
 	public int updateByPrimaryKey(DrdgEmp record) {
 		return drdgEmpMapper.updateByPrimaryKey(record);
+	}
+
+	public int updateByPrimaryKeySelective(DrdgEmp record) {
+		return drdgEmpMapper.updateByPrimaryKeySelective(record);
+	}
+
+	public int deleteByPrimaryKey(Integer empId) {
+		return drdgEmpMapper.deleteByPrimaryKey(empId);
+	}
+
+	public int selectModelCount() {
+		return drdgEmpMapper.selectModelCount();
 	}
 	
 	

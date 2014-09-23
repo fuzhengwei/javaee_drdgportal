@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.drdg.emp.bean.DrdgEmp;
 import com.drdg.emp.service.IDrdgEmpService;
+import com.drdg.util.bean.Page;
 import com.drdg.util.bean.Result;
 import com.drdg.util.date.DateUtil;
 
@@ -38,50 +42,54 @@ public class EmpController {
 
 	@RequestMapping("doGetEmpList")
 	@ResponseBody
-	public Map<String, Object> doGetEmpList(){
-		List<DrdgEmp> modelList = drdgEmpService.selectModelList();
+	public Map<String, Object> doGetEmpList(@ModelAttribute Page page){
+		
+		List<DrdgEmp> modelList = drdgEmpService.selectModelList(page);
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("total", String.valueOf(modelList.size()));
+		map.put("total", drdgEmpService.selectModelCount());
 		map.put("rows", modelList);
 		return map;
 	}
 	
 	@RequestMapping("doSaveEmp")
 	@ResponseBody
-	public Map<String, Object> doSaveEmp(@ModelAttribute DrdgEmp drdgEmp){
-		
+	public ModelAndView doSaveEmp(@ModelAttribute DrdgEmp drdgEmp,@ModelAttribute Page page){
+		ModelAndView mv = new ModelAndView();
 		drdgEmp.setEmpDate(new Date());
-		drdgEmpService.insert(drdgEmp);
-		List<DrdgEmp> modelList = drdgEmpService.selectModelList();
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("total", String.valueOf(modelList.size()));
-		map.put("rows", modelList);
-		return map;
+		
+		if(drdgEmpService.insert(drdgEmp) > 0){
+			mv.addObject("page", page);
+			mv.setViewName("emp/doGetEmpList.do");
+		}else{
+			System.out.println("保存失败，记录日志");
+		}
+		return mv;
 		
 	}
 	
 	@RequestMapping("doUpdateEmp")
 	@ResponseBody
-	public Map<String, Object> doUpdateEmp(@ModelAttribute DrdgEmp drdgEmp){
-		
-		System.out.println(drdgEmp.getEmpId()+ drdgEmp.getEmpName());
-		
-		List<DrdgEmp> modelList = drdgEmpService.selectModelList();
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("total", String.valueOf(modelList.size()));
-		map.put("rows", modelList);
-		return map;
+	public ModelAndView doUpdateEmp(@ModelAttribute DrdgEmp drdgEmp,@ModelAttribute Page page){
+		ModelAndView mv = new ModelAndView();
+		if(drdgEmpService.updateByPrimaryKeySelective(drdgEmp) > 0){
+			mv.addObject("page", page);
+			mv.setViewName("emp/doGetEmpList.do");
+		}else{
+			System.out.println("修改失败，记录日志");
+		}
+		return mv;
 	}
 	
 	@RequestMapping("doDeleteEmpById")
 	@ResponseBody
-	public Result doDeleteEmpById(@RequestParam String empId){
+	public Result doDeleteEmpById(@RequestParam Integer empId){
 		
-		System.out.println("doDeleteEmpById:=>"+empId);
-		
-		Result r = new Result();
-		r.setSuccess(true);
-		
-		return r;
+		Result result = new Result();
+		if(drdgEmpService.deleteByPrimaryKey(empId) > 0){
+			result.setSuccess(true);
+		}else{
+			result.setSuccess(false);
+		}
+		return result;
 	}
 }

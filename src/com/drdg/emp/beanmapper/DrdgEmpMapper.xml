@@ -30,6 +30,19 @@
 	drdg_emp 
 	LIMIT #{firstResult,jdbcType=INTEGER},#{maxResult,jdbcType=INTEGER}
   </select>
+  <select id="selectModelListBySearch" resultMap="BaseResultMap" parameterType="java.lang.String" >
+	SELECT
+	emp_id,
+	emp_name,
+	emp_pwd,
+	case emp_power when '0' then '管理员' when '1' then '雇员' else '雇员' end as 'emp_power',
+	emp_date,
+	case emp_state when '0' then '开启' when '1' then '关闭' else '关闭' end as emp_state
+	FROM
+	drdg_emp 
+	WHERE emp_name like CONCAT('%',#{empName,jdbcType=VARCHAR},'%')
+	LIMIT 0,10
+  </select>
   <select id="selectModelCount" resultType="Integer">
   	SELECT count(*) FROM drdg_emp 
   </select>

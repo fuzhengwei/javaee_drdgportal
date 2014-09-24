@@ -47,6 +47,10 @@ public class DrdgEmpService implements IDrdgEmpService {
 	public int selectModelCount() {
 		return drdgEmpMapper.selectModelCount();
 	}
+
+	public List<DrdgEmp> selectModelListBySearch(String empName) {
+		return drdgEmpMapper.selectModelListBySearch(empName);
+	}
 	
 	
 

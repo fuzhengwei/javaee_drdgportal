@@ -17,6 +17,8 @@ public interface IDrdgEmpService {
 	
 	public abstract List<DrdgEmp> selectModelList(Page page);
 	
+	public abstract List<DrdgEmp> selectModelListBySearch(String empName);
+	
 	public abstract int selectModelCount();
 	
 }

@@ -18,6 +18,8 @@ public interface DrdgEmpMapper {
     
     List<DrdgEmp> selectModelList(Page page);
     
+    List<DrdgEmp> selectModelListBySearch(String empName);
+    
     int updateByPrimaryKeySelective(DrdgEmp record);
 
     int updateByPrimaryKey(DrdgEmp record);

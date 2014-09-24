@@ -43,8 +43,18 @@ public class EmpController {
 	@RequestMapping("doGetEmpList")
 	@ResponseBody
 	public Map<String, Object> doGetEmpList(@ModelAttribute Page page){
-		
 		List<DrdgEmp> modelList = drdgEmpService.selectModelList(page);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("total", drdgEmpService.selectModelCount());
+		map.put("rows", modelList);
+		return map;
+	}
+	
+	@RequestMapping("doGetEmpListBySearch")
+	@ResponseBody
+	public Map<String, Object> doGetEmpListBySearch(@ModelAttribute Page page,@RequestParam String empName){
+		
+		List<DrdgEmp> modelList = drdgEmpService.selectModelListBySearch(empName);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("total", drdgEmpService.selectModelCount());
 		map.put("rows", modelList);

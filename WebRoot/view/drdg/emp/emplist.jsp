@@ -22,6 +22,7 @@
 		<script type="text/javascript" src="view/res/jquery-easyui-1.4/jquery.easyui.min.js"></script>
 	</head>
 	<body>
+	
 		<table id="dg" class="easyui-datagrid"
 			style="width: 100%; " url="emp/doGetEmpList.do"
 			toolbar="#toolbar" pagination="true" rownumbers="true"
@@ -47,6 +48,7 @@
 			</thead>
 		</table>
 		<div id="toolbar">
+			<input class="easyui-searchbox" data-options="prompt:'请输入检索的雇员姓名',searcher:doSearch" style="width:300px;"/>
 			<a href="javascript:void(0)" class="easyui-linkbutton"
 				iconCls="icon-add" plain="true" onclick= newUser();>New User</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton"
@@ -102,6 +104,13 @@
 <script type="text/javascript">
 
 	var url;
+	function doSearch(value){
+		$('#dg').datagrid({
+			url:'emp/doGetEmpListBySearch.do',
+			queryParams:{empName:value}
+		});  
+	}
+	
 	function newUser() {
 		$('#dlg').dialog('open').dialog('setTitle', 'New User');
 		$('#fm').form('clear');
@@ -143,8 +152,8 @@
 				} else {
 					$('#dlg').dialog('close'); // close the dialog
 				    $('#dg').datagrid('reload'); // reload the user data
-		}
-	}
+				}
+			}
 		});
 	}
 	function destroyUser() {

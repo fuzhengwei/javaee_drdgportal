@@ -68,4 +68,11 @@ public class DrdgEmp {
         this.empState = empState == null ? null : empState.trim();
     }
 
+	@Override
+	public String toString() {
+		return "DrdgEmp [empDate=" + empDate + ", empId=" + empId
+				+ ", empName=" + empName + ", empPower=" + empPower
+				+ ", empPwd=" + empPwd + ", empState=" + empState + "]";
+	}
+
 }

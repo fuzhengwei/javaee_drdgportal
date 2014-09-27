@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.drdg.projectmodule.dao.ProjectModuleInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.drdg.projectmodule.bean.ProjectModuleInfo" >
+    <id column="pmi_id" property="pmiId" jdbcType="INTEGER" />
+    <result column="fk_pm_id" property="fkPmId" jdbcType="INTEGER" />
+    <result column="pmi_sequence" property="pmiSequence" jdbcType="INTEGER" />
+    <result column="pmi_name" property="pmiName" jdbcType="VARCHAR" />
+    <result column="pmi_url" property="pmiUrl" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pmi_id, fk_pm_id, pmi_sequence, pmi_name, pmi_url
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from drdg_project_module_info
+    where pmi_id = #{pmiId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from drdg_project_module_info
+    where pmi_id = #{pmiId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.drdg.projectmodule.bean.ProjectModuleInfo" >
+    insert into drdg_project_module_info (pmi_id, fk_pm_id, pmi_sequence, 
+      pmi_name, pmi_url)
+    values (#{pmiId,jdbcType=INTEGER}, #{fkPmId,jdbcType=INTEGER}, #{pmiSequence,jdbcType=INTEGER}, 
+      #{pmiName,jdbcType=VARCHAR}, #{pmiUrl,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.drdg.projectmodule.bean.ProjectModuleInfo" >
+    insert into drdg_project_module_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pmiId != null" >
+        pmi_id,
+      </if>
+      <if test="fkPmId != null" >
+        fk_pm_id,
+      </if>
+      <if test="pmiSequence != null" >
+        pmi_sequence,
+      </if>
+      <if test="pmiName != null" >
+        pmi_name,
+      </if>
+      <if test="pmiUrl != null" >
+        pmi_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pmiId != null" >
+        #{pmiId,jdbcType=INTEGER},
+      </if>
+      <if test="fkPmId != null" >
+        #{fkPmId,jdbcType=INTEGER},
+      </if>
+      <if test="pmiSequence != null" >
+        #{pmiSequence,jdbcType=INTEGER},
+      </if>
+      <if test="pmiName != null" >
+        #{pmiName,jdbcType=VARCHAR},
+      </if>
+      <if test="pmiUrl != null" >
+        #{pmiUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.drdg.projectmodule.bean.ProjectModuleInfo" >
+    update drdg_project_module_info
+    <set >
+      <if test="fkPmId != null" >
+        fk_pm_id = #{fkPmId,jdbcType=INTEGER},
+      </if>
+      <if test="pmiSequence != null" >
+        pmi_sequence = #{pmiSequence,jdbcType=INTEGER},
+      </if>
+      <if test="pmiName != null" >
+        pmi_name = #{pmiName,jdbcType=VARCHAR},
+      </if>
+      <if test="pmiUrl != null" >
+        pmi_url = #{pmiUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pmi_id = #{pmiId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.drdg.projectmodule.bean.ProjectModuleInfo" >
+    update drdg_project_module_info
+    set fk_pm_id = #{fkPmId,jdbcType=INTEGER},
+      pmi_sequence = #{pmiSequence,jdbcType=INTEGER},
+      pmi_name = #{pmiName,jdbcType=VARCHAR},
+      pmi_url = #{pmiUrl,jdbcType=VARCHAR}
+    where pmi_id = #{pmiId,jdbcType=INTEGER}
+  </update>
+</mapper>

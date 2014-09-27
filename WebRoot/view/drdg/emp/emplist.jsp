@@ -1,28 +1,10 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%
-	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
-%>
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<%@ include file="/view/res_head.jsp"%>
 <html>
   <head>
-    <base href="<%=basePath%>">
-		<title>Basic CRUD Application - jQuery EasyUI CRUD Demo</title>
-		<link rel="stylesheet" type="text/css" href="view/res/jquery-easyui-1.4/themes/default/easyui.css">
-		<link rel="stylesheet" type="text/css" href="view/res/jquery-easyui-1.4/themes/icon.css">
-		<link rel="stylesheet" type="text/css" href="view/res/jquery-easyui-1.4/themes/color.css">
-		<link rel="stylesheet" type="text/css" href="view/res/jquery-easyui-1.4/demo/demo.css">
-		<script type="text/javascript" src="view/res/scripts/lib/jquery.min.js"></script>
-		<script type="text/javascript" src="view/res/jquery-easyui-1.4/jquery.easyui.min.js"></script>
+    <%@ include file="/view/res_easyui.jsp"%>
 	</head>
 	<body>
-	
 		<table id="dg" class="easyui-datagrid"
 			style="width: 100%; " url="emp/doGetEmpList.do"
 			toolbar="#toolbar" pagination="true" rownumbers="true"

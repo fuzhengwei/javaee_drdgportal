@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.drdg.projectmodule.dao.ProjectModuleMapper" >
+  <resultMap id="BaseResultMap" type="com.drdg.projectmodule.bean.ProjectModule" >
+    <id column="pm_id" property="pmId" jdbcType="INTEGER" />
+    <result column="pm_name" property="pmName" jdbcType="VARCHAR" />
+    <result column="pm_state" property="pmState" jdbcType="CHAR" />
+    <result column="pm_remarks" property="pmRemarks" jdbcType="VARCHAR" />
+    <collection property="children" ofType="com.drdg.projectmodule.bean.ProjectModuleInfo">
+    	<id column="pmi_id" property="pmiId" jdbcType="INTEGER" />
+	    <result column="fk_pm_id" property="fkPmId" jdbcType="INTEGER" />
+	    <result column="pmi_sequence" property="pmiSequence" jdbcType="INTEGER" />
+	    <result column="pmi_name" property="pmiName" jdbcType="VARCHAR" />
+	    <result column="pmi_url" property="pmiUrl" jdbcType="VARCHAR" />
+	    <result column="id" property="id" javaType="INTEGER"/>
+    </collection>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pm_id, pm_name, pm_state, pm_remarks
+  </sql>
+  
+  <select id="selectProModuleInfo" resultMap="BaseResultMap">
+  	SELECT
+		drdg_project_module.pm_id,
+		drdg_project_module.pm_name,
+		drdg_project_module.pm_state,
+		drdg_project_module.pm_remarks,
+		drdg_project_module_info.pmi_id,
+		CONCAT(drdg_project_module.pm_id ,drdg_project_module_info.pmi_id) as id,
+		drdg_project_module_info.fk_pm_id,
+		drdg_project_module_info.pmi_sequence,
+		drdg_project_module_info.pmi_name,
+		drdg_project_module_info.pmi_url
+		FROM
+		drdg_project_module
+		left Join drdg_project_module_info ON drdg_project_module_info.fk_pm_id = drdg_project_module.pm_id
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from drdg_project_module
+    where pm_id = #{pmId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from drdg_project_module
+    where pm_id = #{pmId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.drdg.projectmodule.bean.ProjectModule" >
+    insert into drdg_project_module (pm_id, pm_name, pm_state, 
+      pm_remarks)
+    values (#{pmId,jdbcType=INTEGER}, #{pmName,jdbcType=VARCHAR}, #{pmState,jdbcType=CHAR}, 
+      #{pmRemarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.drdg.projectmodule.bean.ProjectModule" >
+    insert into drdg_project_module
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pmId != null" >
+        pm_id,
+      </if>
+      <if test="pmName != null" >
+        pm_name,
+      </if>
+      <if test="pmState != null" >
+        pm_state,
+      </if>
+      <if test="pmRemarks != null" >
+        pm_remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pmId != null" >
+        #{pmId,jdbcType=INTEGER},
+      </if>
+      <if test="pmName != null" >
+        #{pmName,jdbcType=VARCHAR},
+      </if>
+      <if test="pmState != null" >
+        #{pmState,jdbcType=CHAR},
+      </if>
+      <if test="pmRemarks != null" >
+        #{pmRemarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.drdg.projectmodule.bean.ProjectModule" >
+    update drdg_project_module
+    <set >
+      <if test="pmName != null" >
+        pm_name = #{pmName,jdbcType=VARCHAR},
+      </if>
+      <if test="pmState != null" >
+        pm_state = #{pmState,jdbcType=CHAR},
+      </if>
+      <if test="pmRemarks != null" >
+        pm_remarks = #{pmRemarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pm_id = #{pmId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.drdg.projectmodule.bean.ProjectModule" >
+    update drdg_project_module
+    set pm_name = #{pmName,jdbcType=VARCHAR},
+      pm_state = #{pmState,jdbcType=CHAR},
+      pm_remarks = #{pmRemarks,jdbcType=VARCHAR}
+    where pm_id = #{pmId,jdbcType=INTEGER}
+  </update>
+</mapper>

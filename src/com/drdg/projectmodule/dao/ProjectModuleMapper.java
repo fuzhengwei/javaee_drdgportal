@@ -15,6 +15,8 @@ public interface ProjectModuleMapper {
 
     List<ProjectModule> selectProModuleInfo();
     
+    List<ProjectModule> selectProModule();
+    
     int updateByPrimaryKeySelective(ProjectModule record);
 
     int updateByPrimaryKey(ProjectModule record);

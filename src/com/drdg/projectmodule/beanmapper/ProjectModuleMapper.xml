@@ -35,7 +35,13 @@
 		drdg_project_module
 		left Join drdg_project_module_info ON drdg_project_module_info.fk_pm_id = drdg_project_module.pm_id
   </select>
-  
+  <select id="selectProModule" resultMap="BaseResultMap">
+  	SELECT
+		drdg_project_module.pm_id,
+		drdg_project_module.pm_name
+		FROM
+		drdg_project_module
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

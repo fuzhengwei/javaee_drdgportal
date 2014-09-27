@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.drdg.projectmodule.bean.ProjectModule;
 import com.drdg.projectmodule.dao.ProjectModuleMapper;
 import com.drdg.projectmodule.service.IProjectModuleService;
 
@@ -24,6 +25,14 @@ public class ProjectModuleService implements IProjectModuleService {
 
 	public List<com.drdg.projectmodule.bean.ProjectModule> selectProModuleInfo() {
 		return projectModuleMapper.selectProModuleInfo();
+	}
+
+	public int insertSelective(ProjectModule record) {
+		return projectModuleMapper.insertSelective(record);
+	}
+
+	public List<ProjectModule> selectProModule() {
+		return projectModuleMapper.selectProModule();
 	}
 
 }

@@ -57,9 +57,9 @@ public class ProjectModule {
 
 	@Override
 	public String toString() {
-		return "ProjectModule [pmId=" + pmId + ", pmName=" + pmName
-				+ ", pmRemarks=" + pmRemarks + ", pmState=" + pmState
-				+ ", proModuleInfoList=" + children + "]";
+		return "ProjectModule [children=" + children + ", id=" + id + ", pmId="
+				+ pmId + ", pmName=" + pmName + ", pmRemarks=" + pmRemarks
+				+ ", pmState=" + pmState + "]";
 	}
 
 }

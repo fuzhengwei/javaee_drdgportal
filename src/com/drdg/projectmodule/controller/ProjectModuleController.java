@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.drdg.projectmodule.bean.ProjectModule;
+import com.drdg.projectmodule.bean.ProjectModuleInfo;
 import com.drdg.projectmodule.service.IProjectModuleService;
 import com.drdg.util.bean.Result;
 
@@ -37,6 +38,19 @@ public class ProjectModuleController {
 		}else{
 			r.setSuccess(false);
 			r.setErrorMsg("doSaveProModule error");
+		}
+		return r;
+	}
+	
+	@RequestMapping("doSaveProModuleInfo")
+	@ResponseBody
+	public Result doSaveProModuleInfo(@ModelAttribute ProjectModuleInfo record){
+		Result r = new Result();
+		if(projectModuleService.insertSelective(record) > 0){
+			r.setSuccess(true);
+		}else{
+			r.setSuccess(false);
+			r.setErrorMsg("doSaveProModuleInfo error");
 		}
 		return r;
 	}

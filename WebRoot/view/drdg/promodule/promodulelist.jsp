@@ -18,13 +18,28 @@
 				panelHeight:'auto'
 				">
 			<thead>
-				<tr>
-					<th data-options="field:'pmName'" width="220">
+				<tr align="center">
+					<th data-options="
+							field:'pmState',
+							formatter: function(value,row,index){
+										if(0 == value){
+											return '开启';
+										}else if(1 == value){
+											return '关闭';
+										}else{
+											return '';
+										}
+									}
+							" width="40" align="center">
+						状态
 					</th>
-					<th data-options="field:'pmiSequence'" width="150">
+					<th data-options="field:'pmName'" align="left">
+						模块树
+					</th>
+					<th data-options="field:'pmiSequence'">
 						序号
 					</th>
-					<th data-options="field:'pmiUrl'" width="150">
+					<th data-options="field:'pmiUrl'">
 						链接
 					</th>
 				</tr>
@@ -35,6 +50,8 @@
 				iconCls="icon-add" plain="true" onclick="newProModule()";>添加模块</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton"
 				iconCls="icon-add" plain="true" onclick="newProModuleInfo()";>添加模块子信息</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton"
+				iconCls="icon-edit" plain="true" onclick=editUser();>修改模块</a>
 		</div>
 		<div id="dlg-module" class="easyui-dialog"
 			style="width: 400px; height: 200px; padding: 10px 20px" closed="true" 
@@ -145,8 +162,7 @@
 		$('#fk_pm_id').combobox('reload', 'proModule/doGetProModule.do');
 
 		var row;
-		if(null != $('#dg').treegrid('getSelected')){
-			row = $('#dg').treegrid('getSelected');
+		if(null != (row = $('#dg').treegrid('getSelected'))){
 			//当鼠标点在模块下子信息时候，可以通过子信息截取头信息同row.pmId同作用
 			var infoId = row.id;
 			if(null != row.pmId){
@@ -162,6 +178,29 @@
 		wform = '#fm-moduleinfo';
 	}
 
+	function editUser() {
+		var row;
+		if(null != (row = $('#dg').treegrid('getSelected'))){
+			$('#fk_pm_id').combobox('reload', 'proModule/doGetProModule.do');
+			if(typeof row.pmId === 'undefined'){
+				//在模块下子信息上
+				$('#dlg-moduleinfo').dialog('open').dialog('setTitle', 'Edit User');
+				$('#dlg-moduleinfo').form('load', row);
+				url = 'proModule/doUpdateProModuleInfo.do';
+				wform = '#fm-moduleinfo';
+			}else{
+				//在模块上
+				$('#dlg-module').dialog('open').dialog('setTitle', 'Edit User');
+				$('#dlg-module').form('load', row);
+				$("#psState").combobox("setValue", $("#psState").combobox('getData')[0].label);
+				console.info(row.id);
+				console.info(row);
+				url = 'proModule/doUpdateProModule.do?pmId='+row.id;
+				wform = '#fm-module';
+			}
+		}
+	}
+	
 	function saveProModule() {
 		$(wform).form('submit', {
 			url : url,
@@ -178,8 +217,8 @@
 				} else {
 					$('#dlg-module,#dlg-moduleinfo').dialog('close'); // close the dialog
 					$('#dg').treegrid('reload'); // reload the user data
-		}
-	}
+				}
+			}
 		});
 	}
 </script>

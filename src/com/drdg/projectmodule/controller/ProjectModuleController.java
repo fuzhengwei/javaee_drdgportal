@@ -42,6 +42,22 @@ public class ProjectModuleController {
 		return r;
 	}
 	
+	@RequestMapping("doUpdateProModule")
+	@ResponseBody
+	public Result doUpdateProModule(@ModelAttribute ProjectModule proModule){
+		
+		System.out.println("0000----"+proModule);
+		
+		Result r = new Result();
+		if(projectModuleService.updateByPrimaryKeySelective(proModule) > 0){
+			r.setSuccess(true);
+		}else{
+			r.setSuccess(false);
+			r.setErrorMsg("doUpdateProModule error");
+		}
+		return r;
+	}
+	
 	@RequestMapping("doSaveProModuleInfo")
 	@ResponseBody
 	public Result doSaveProModuleInfo(@ModelAttribute ProjectModuleInfo record){

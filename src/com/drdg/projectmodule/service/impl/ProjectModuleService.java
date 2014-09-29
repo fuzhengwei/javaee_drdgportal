@@ -52,4 +52,8 @@ public class ProjectModuleService implements IProjectModuleService {
 		return projectModuleInfoMapper.insertSelective(record);
 	}
 
+	public int updateByPrimaryKeySelective(ProjectModule record) {
+		return projectModuleMapper.updateByPrimaryKeySelective(record);
+	}
+
 }

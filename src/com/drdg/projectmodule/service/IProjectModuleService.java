@@ -11,6 +11,8 @@ public interface IProjectModuleService {
 	
 	public abstract int insertSelective(ProjectModuleInfo record);
 	
+	public abstract int updateByPrimaryKeySelective(ProjectModule record);
+	
 	public abstract List<ProjectModule> selectProModuleInfo();
 	
 	public abstract List<ProjectModule> selectProModule();

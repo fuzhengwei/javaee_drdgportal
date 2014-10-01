@@ -51,7 +51,9 @@
 			<a href="javascript:void(0)" class="easyui-linkbutton"
 				iconCls="icon-add" plain="true" onclick="newProModuleInfo()";>添加模块子信息</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton"
-				iconCls="icon-edit" plain="true" onclick=editUser();>修改模块</a>
+				iconCls="icon-edit" plain="true" onclick="editUser()";>修改模块</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton"
+			    iconCls="icon-remove" plain="true" onclick=destroyProModule();>删除模块</a>
 		</div>
 		<div id="dlg-module" class="easyui-dialog"
 			style="width: 400px; height: 200px; padding: 10px 20px" closed="true" 
@@ -70,14 +72,14 @@
 					<label>
 						模块状态:
 					</label>
-					<input class="easyui-combobox" id="psState" name="psState" data-options="
-						valueField: 'label',
+					<input class="easyui-combobox" id="pmState" name="pmState" data-options="
+						valueField: 'pmState',
 						textField: 'value',
 						data: [{
-							label: '0',
+							pmState: '0',
 							value: '开启'
 						},{
-							label: '1',
+							pmState: '1',
 							value: '关闭'
 						}],
 						panelHeight:'auto',
@@ -151,7 +153,7 @@
 	function newProModule() {
 		$('#dlg-module').dialog('open').dialog('setTitle', 'New User');
 		$('#fm-module').form('clear');
-		$("#psState").combobox("setValue", $("#psState").combobox('getData')[0].label);
+		$("#pmState").combobox("setValue", $("#pmState").combobox('getData')[0].label);
 		url = 'proModule/doSaveProModule.do';
 		wform = '#fm-module';
 	}
@@ -186,18 +188,67 @@
 				//在模块下子信息上
 				$('#dlg-moduleinfo').dialog('open').dialog('setTitle', 'Edit User');
 				$('#dlg-moduleinfo').form('load', row);
-				url = 'proModule/doUpdateProModuleInfo.do';
+				url = 'proModule/doUpdateProModuleInfo.do?pmiId='+row.pmiId;
 				wform = '#fm-moduleinfo';
 			}else{
 				//在模块上
 				$('#dlg-module').dialog('open').dialog('setTitle', 'Edit User');
 				$('#dlg-module').form('load', row);
-				$("#psState").combobox("setValue", $("#psState").combobox('getData')[0].label);
-				console.info(row.id);
-				console.info(row);
+				$("#pmState").combobox("setValue", $("#pmState").combobox('getData')[0].pmState);
 				url = 'proModule/doUpdateProModule.do?pmId='+row.id;
 				wform = '#fm-module';
 			}
+		}
+	}
+
+	function destroyProModule(){
+		var row;
+		if(null != (row = $("#dg").treegrid("getSelected"))){
+			if(null != row.children){
+				if(row.children.length > 0){
+					$.messager.alert('警告','模块下还有子元素');  
+					return;  
+				}else{
+					$.messager.confirm('Confirm',
+							'Are you sure you want to destroy this Module?', function(r) {
+								if (r) {
+									$.post('proModule/doDeleteProModuleByPrimaryKey.do', {
+									 pmId : row.pmId
+								}, function(result) {
+									if (result.success) {
+										$('#dg').treegrid('reload'); 
+								} else {
+									$.messager.show( { 
+												title : 'Error',
+												msg : result.errorMsg
+									});
+								}
+									}, 'json');
+								}
+					});
+				}
+			}else{
+				$.messager.confirm('Confirm',
+						'Are you sure you want to destroy this ModuleInfo?', function(r) {
+							if (r) {
+								$.post('proModule/doDeleteProModuleInfoByPrimaryKey.do', {
+								 pmiId : row.pmiId
+							}, function(result) {
+								if (result.success) {
+									$('#dg').treegrid('reload'); 
+							} else {
+								$.messager.show( { 
+											title : 'Error',
+											msg : result.errorMsg
+								});
+							}
+								}, 'json');
+							}
+				});
+			}
+		}else{
+			$.messager.alert('警告','请选择要删除的内容');    
+			return;
 		}
 	}
 	

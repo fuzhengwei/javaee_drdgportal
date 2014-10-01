@@ -48,7 +48,7 @@
     from drdg_project_module
     where pm_id = #{pmId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteProModuleByPrimaryKey" parameterType="java.lang.Integer" >
     delete from drdg_project_module
     where pm_id = #{pmId,jdbcType=INTEGER}
   </delete>

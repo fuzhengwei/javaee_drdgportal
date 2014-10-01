@@ -56,4 +56,16 @@ public class ProjectModuleService implements IProjectModuleService {
 		return projectModuleMapper.updateByPrimaryKeySelective(record);
 	}
 
+	public int updateByPrimaryKeySelective(ProjectModuleInfo record) {
+		return projectModuleInfoMapper.updateByPrimaryKeySelective(record);
+	}
+
+	public int deleteProModuleByPrimaryKey(Integer pmId) {
+		return projectModuleMapper.deleteProModuleByPrimaryKey(pmId);
+	}
+
+	public int deleteProModuleInfoByPrimaryKey(Integer pmiId) {
+		return projectModuleInfoMapper.deleteProModuleInfoByPrimaryKey(pmiId);
+	}
+
 }

@@ -17,7 +17,7 @@
     from drdg_project_module_info
     where pmi_id = #{pmiId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteProModuleInfoByPrimaryKey" parameterType="java.lang.Integer" >
     delete from drdg_project_module_info
     where pmi_id = #{pmiId,jdbcType=INTEGER}
   </delete>

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.drdg.projectmodule.bean.ProjectModule;
@@ -42,11 +43,22 @@ public class ProjectModuleController {
 		return r;
 	}
 	
+	@RequestMapping("doDeleteProModuleByPrimaryKey")
+	@ResponseBody
+	public Result doDeleteProModuleByPrimaryKey(@RequestParam Integer pmId){
+		Result r = new Result();
+		if(projectModuleService.deleteProModuleByPrimaryKey(pmId) > 0){
+			r.setSuccess(true);
+		}else{
+			r.setSuccess(false);
+			r.setErrorMsg("doDeleteProModuleByPrimaryKey error");
+		}
+		return r;
+	}
+	
 	@RequestMapping("doUpdateProModule")
 	@ResponseBody
 	public Result doUpdateProModule(@ModelAttribute ProjectModule proModule){
-		
-		System.out.println("0000----"+proModule);
 		
 		Result r = new Result();
 		if(projectModuleService.updateByPrimaryKeySelective(proModule) > 0){
@@ -69,6 +81,35 @@ public class ProjectModuleController {
 			r.setErrorMsg("doSaveProModuleInfo error");
 		}
 		return r;
+	}
+	
+	@RequestMapping("doDeleteProModuleInfoByPrimaryKey")
+	@ResponseBody
+	public Result doDeleteProModuleInfoByPrimaryKey(@RequestParam Integer pmiId){
+		Result r = new Result();
+		if(projectModuleService.deleteProModuleInfoByPrimaryKey(pmiId) > 0){
+			r.setSuccess(true);
+		}else{
+			r.setSuccess(false);
+			r.setErrorMsg("doDeleteProModuleInfoByPrimaryKey error");
+		}
+		return r;
+	}
+	
+	
+	@RequestMapping("doUpdateProModuleInfo")
+	@ResponseBody
+	public Result doUpdateProModuleInfo(@ModelAttribute ProjectModuleInfo record){
+		System.out.println(record);
+		Result r = new Result();
+		if(projectModuleService.updateByPrimaryKeySelective(record) > 0){
+			r.setSuccess(true);
+		}else{
+			r.setSuccess(false);
+			r.setErrorMsg("doUpdateProModuleInfo error");
+		}
+		return r;
+		
 	}
 	
 	@RequestMapping("doGetProModule")

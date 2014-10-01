@@ -11,7 +11,13 @@ public interface IProjectModuleService {
 	
 	public abstract int insertSelective(ProjectModuleInfo record);
 	
+	public abstract int deleteProModuleByPrimaryKey(Integer pmId);
+	
+	public abstract int deleteProModuleInfoByPrimaryKey(Integer pmiId);
+	
 	public abstract int updateByPrimaryKeySelective(ProjectModule record);
+	
+	public abstract int updateByPrimaryKeySelective(ProjectModuleInfo record);
 	
 	public abstract List<ProjectModule> selectProModuleInfo();
 	

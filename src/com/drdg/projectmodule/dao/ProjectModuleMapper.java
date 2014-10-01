@@ -5,7 +5,8 @@ import java.util.List;
 import com.drdg.projectmodule.bean.ProjectModule;
 
 public interface ProjectModuleMapper {
-    int deleteByPrimaryKey(Integer pmId);
+	
+    int deleteProModuleByPrimaryKey(Integer pmId);
 
     int insert(ProjectModule record);
 

@@ -3,7 +3,7 @@ package com.drdg.projectmodule.dao;
 import com.drdg.projectmodule.bean.ProjectModuleInfo;
 
 public interface ProjectModuleInfoMapper {
-    int deleteByPrimaryKey(Integer pmiId);
+    int deleteProModuleInfoByPrimaryKey(Integer pmiId);
 
     int insert(ProjectModuleInfo record);
 

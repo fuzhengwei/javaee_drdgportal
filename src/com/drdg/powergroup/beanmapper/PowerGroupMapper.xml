@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.drdg.powergroup.dao.PowerGroupMapper" >
+  <resultMap id="BaseResultMap" type="com.drdg.powergroup.bean.PowerGroup" >
+    <id column="pg_id" property="pgId" jdbcType="INTEGER" />
+    <result column="pg_name" property="pgName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pg_id, pg_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from drdg_power_group
+    where pg_id = #{pgId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from drdg_power_group
+    where pg_id = #{pgId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.drdg.powergroup.bean.PowerGroup" >
+    insert into drdg_power_group (pg_id, pg_name)
+    values (#{pgId,jdbcType=INTEGER}, #{pgName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.drdg.powergroup.bean.PowerGroup" >
+    insert into drdg_power_group
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pgId != null" >
+        pg_id,
+      </if>
+      <if test="pgName != null" >
+        pg_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pgId != null" >
+        #{pgId,jdbcType=INTEGER},
+      </if>
+      <if test="pgName != null" >
+        #{pgName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.drdg.powergroup.bean.PowerGroup" >
+    update drdg_power_group
+    <set >
+      <if test="pgName != null" >
+        pg_name = #{pgName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pg_id = #{pgId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.drdg.powergroup.bean.PowerGroup" >
+    update drdg_power_group
+    set pg_name = #{pgName,jdbcType=VARCHAR}
+    where pg_id = #{pgId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -15,6 +15,27 @@
 	    <result column="id" property="id" javaType="INTEGER"/>
     </collection>
   </resultMap>
+  
+  <resultMap id="TreeResultMap" type="com.drdg.projectmodule.bean.TreeProModule">
+  	<id column="pm_id" property="id" jdbcType="INTEGER"/>
+  	<result column="pm_name" property="text" jdbcType="VARCHAR"/>
+  	<collection property="children" ofType="com.drdg.projectmodule.bean.TreeProModuleInfo">
+  		<id column="pmi_id" property="id" jdbcType="INTEGER"/>
+  		<result column="pmi_name" property="text" jdbcType="VARCHAR"/>
+  	</collection>
+  </resultMap>
+  
+  <select id="selectTreeProModule" resultMap="TreeResultMap">
+  	SELECT
+	drdg_project_module.pm_id AS pm_id,
+	drdg_project_module.pm_name AS pm_name,
+	CONCAT(drdg_project_module.pm_id ,drdg_project_module_info.pmi_id) AS pmi_id,
+	drdg_project_module_info.pmi_name AS pmi_name 
+	FROM
+	drdg_project_module
+	left Join drdg_project_module_info ON drdg_project_module_info.fk_pm_id = drdg_project_module.pm_id
+  </select>
+  
   <sql id="Base_Column_List" >
     pm_id, pm_name, pm_state, pm_remarks
   </sql>

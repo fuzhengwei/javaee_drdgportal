@@ -3,6 +3,7 @@ package com.drdg.projectmodule.dao;
 import java.util.List;
 
 import com.drdg.projectmodule.bean.ProjectModule;
+import com.drdg.projectmodule.bean.TreeProModule;
 
 public interface ProjectModuleMapper {
 	
@@ -17,6 +18,8 @@ public interface ProjectModuleMapper {
     List<ProjectModule> selectProModuleInfo();
     
     List<ProjectModule> selectProModule();
+    
+    List<TreeProModule> selectTreeProModule();
     
     int updateByPrimaryKeySelective(ProjectModule record);
 

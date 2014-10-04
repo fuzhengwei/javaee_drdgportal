@@ -9,19 +9,25 @@
 	<div style="margin:20px 0;">
 	<a href="#" class="easyui-linkbutton" onclick="getChecked()">GetChecked</a>
 	</div>
-	<div style="margin:10px 0">
-	<input type="checkbox" checked onchange="$('#tt').tree({cascadeCheck:$(this).is(':checked')})">CascadeCheck
-	<input type="checkbox" onchange="$('#tt').tree({onlyLeafCheck:$(this).is(':checked')})">OnlyLeafCheck
+	<div class="easyui-panel" title="权限创建"   style="width:100%;height:300px;padding:10px;">
+	 <div class="easyui-layout" data-options="fit:true">
+		<div data-options="region:'west',split:true" title="模块树结构" style="width:200px;">
+			<ul id="tt" class="easyui-tree" 
+				data-options="url:'powerGroup/doGetTreeProModule.do',
+				method:'get',
+				animate:true,
+				checkbox:true">
+			</ul>
+		</div>
+		<div data-options="region:'center',split:true"  title="操作控制台"  style="padding:10px">
+		Right Content
+		</div>
+		<div data-options="region:'east',split:true"  title="权限树结构"  style="width:200px;padding:10px">
+		Right Content
+	    </div>
+		
+	 </div>
 	</div>
-	<div class="easyui-panel" style="padding:5px">
-	<ul id="tt" class="easyui-tree" 
-		data-options="url:'powerGroup/doGetTreeProModule.do',
-		method:'get',
-		animate:true,
-		checkbox:true">
-	</ul>
-	</div>
-	
 <script type="text/javascript">
 	function getChecked(){
 	var nodes = $('#tt').tree('getChecked');

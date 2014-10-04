@@ -6,7 +6,7 @@ public class TreeProModule {
 
 	private String id;
 	private String text;
-	private String state;
+	private String state = "closed";
 
 	private List<TreeProModuleInfo> children;
 

@@ -33,7 +33,7 @@
 	drdg_project_module_info.pmi_name AS pmi_name 
 	FROM
 	drdg_project_module
-	left Join drdg_project_module_info ON drdg_project_module_info.fk_pm_id = drdg_project_module.pm_id
+	Inner Join drdg_project_module_info ON drdg_project_module_info.fk_pm_id = drdg_project_module.pm_id
   </select>
   
   <sql id="Base_Column_List" >

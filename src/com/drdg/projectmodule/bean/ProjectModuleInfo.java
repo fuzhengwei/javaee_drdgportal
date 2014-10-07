@@ -2,6 +2,9 @@ package com.drdg.projectmodule.bean;
 
 public class ProjectModuleInfo {
 	
+	//为树结构建立伪Id
+	private Integer fakePmiId;
+	
 	private Integer id;
 	private Integer pmiId;
 	private Integer fkPmId;
@@ -10,16 +13,18 @@ public class ProjectModuleInfo {
 	private String pmName;
 	private String pmiUrl;
 	
-	public String getPmName() {
-		return pmiName;
-	}
+	private ProjectModule children;
 	
-	public Integer getId() {
-		return id;
+	public void setFakePmiId(Integer fakePmId) {
+		this.fakePmiId = fakePmId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public Integer getId() {
+		return fakePmiId;
+	}
+	
+	public String getPmName() {
+		return pmiName;
 	}
 
 	public Integer getPmiId() {
@@ -60,6 +65,14 @@ public class ProjectModuleInfo {
 
 	public void setPmiUrl(String pmiUrl) {
 		this.pmiUrl = pmiUrl == null ? null : pmiUrl.trim();
+	}
+
+	public ProjectModule getChildren() {
+		return children;
+	}
+
+	public void setChildren(ProjectModule children) {
+		this.children = children;
 	}
 
 	@Override

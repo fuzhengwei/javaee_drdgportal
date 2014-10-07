@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.drdg.powergroup.bean.PowerGroup;
 import com.drdg.powergroup.service.IPowerGroupService;
 import com.drdg.projectmodule.bean.TreeProModule;
 
@@ -30,9 +31,18 @@ public class PowerGroupController {
 	public List<TreeProModule> doGetTreeProModule(){
 		
 		List<TreeProModule> modelList = powerGroupService.selectTreeProModule();
-		System.out.println(modelList);
 		return modelList;
 		
 	}
+	
+	
+	@RequestMapping("doGetPowerGroupTree")
+	@ResponseBody
+	public List<PowerGroup> doGetPowerGroupTree(){
+		List<PowerGroup> modelList = powerGroupService.selectPowerGroupTree();
+		System.out.println(modelList);
+		return modelList;
+	}
+	
 	
 }

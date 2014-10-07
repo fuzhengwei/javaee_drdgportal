@@ -1,5 +1,7 @@
 package com.drdg.powergroup.dao;
 
+import java.util.List;
+
 import com.drdg.powergroup.bean.PowerGroup;
 
 public interface PowerGroupMapper {
@@ -9,6 +11,8 @@ public interface PowerGroupMapper {
 
     int insertSelective(PowerGroup record);
 
+    List<PowerGroup> selectPowerGroupTree();
+    
     PowerGroup selectByPrimaryKey(Integer pgId);
 
     int updateByPrimaryKeySelective(PowerGroup record);

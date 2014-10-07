@@ -4,6 +4,9 @@ import java.util.List;
 
 public class ProjectModule {
 
+	//为树结构建立伪Id
+	private Integer fakePmId;
+	
 	private Integer id;
 	private Integer pmId;
 	private String pmName;
@@ -11,8 +14,12 @@ public class ProjectModule {
 	private String pmRemarks;
 	private List<ProjectModuleInfo> children;
 	
+	public void setFakePmId(Integer fakePmId) {
+		this.fakePmId = fakePmId;
+	}
+
 	public Integer getId() {
-		return getPmId();
+		return fakePmId;
 	}
 
 	public List<ProjectModuleInfo> getChildren() {

@@ -5,6 +5,39 @@
     <id column="pg_id" property="pgId" jdbcType="INTEGER" />
     <result column="pg_name" property="pgName" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <resultMap id="PowerGroupTreeResultMap" type="com.drdg.powergroup.bean.PowerGroup">
+  	<id column="pg_id" property="pgId" jdbcType="INTEGER" />
+    <result column="pg_name" property="pgName" jdbcType="VARCHAR" />
+    <collection property="children" ofType="com.drdg.projectmodule.bean.ProjectModule">
+    	<id column="pm_id" property="pmId" jdbcType="INTEGER" />
+    	<result column="fakePmId" property="fakePmId" jdbcType="INTEGER"/>
+    	<result column="pm_name" property="pmName" jdbcType="VARCHAR" />
+    	<collection property="children" ofType="com.drdg.projectmodule.bean.ProjectModuleInfo">
+	    	<id column="pmi_id" property="pmiId" jdbcType="INTEGER" />
+			<result column="fakePmiId" property="fakePmiId" javaType="INTEGER"/>
+		    <result column="pmi_name" property="pmiName" jdbcType="VARCHAR" />
+	    </collection>
+    </collection>
+  </resultMap>
+  
+  <select id="selectPowerGroupTree" resultMap="PowerGroupTreeResultMap">
+  	SELECT
+	drdg_power_group.pg_id,
+	drdg_power_group.pg_name,
+	drdg_project_module.pm_id,
+	CONCAT(drdg_power_group.pg_id ,drdg_project_module.pm_id) AS fakePmId,
+	drdg_project_module.pm_name,
+	drdg_project_module_info.pmi_id,
+	CONCAT(drdg_power_group.pg_id ,drdg_project_module.pm_id,drdg_project_module_info.pmi_id) AS fakePmiId,
+	drdg_project_module_info.pmi_name
+	FROM
+	drdg_power_group 
+	Inner Join drdg_power_group_info ON drdg_power_group.pg_id = drdg_power_group_info.fk_pg_id
+	Inner Join drdg_project_module_info ON drdg_project_module_info.pmi_id = drdg_power_group_info.fk_pmi_id
+	Inner Join drdg_project_module ON drdg_project_module.pm_id = drdg_project_module_info.fk_pm_id
+  </select>
+  
   <sql id="Base_Column_List" >
     pg_id, pg_name
   </sql>

@@ -3,6 +3,7 @@
 <mapper namespace="com.drdg.projectmodule.dao.ProjectModuleMapper" >
   <resultMap id="BaseResultMap" type="com.drdg.projectmodule.bean.ProjectModule" >
     <id column="pm_id" property="pmId" jdbcType="INTEGER" />
+    <result column="fakePmId" property="fakePmId" jdbcType="INTEGER"/>
     <result column="pm_name" property="pmName" jdbcType="VARCHAR" />
     <result column="pm_state" property="pmState" jdbcType="CHAR" />
     <result column="pm_remarks" property="pmRemarks" jdbcType="VARCHAR" />
@@ -12,7 +13,7 @@
 	    <result column="pmi_sequence" property="pmiSequence" jdbcType="INTEGER" />
 	    <result column="pmi_name" property="pmiName" jdbcType="VARCHAR" />
 	    <result column="pmi_url" property="pmiUrl" jdbcType="VARCHAR" />
-	    <result column="id" property="id" javaType="INTEGER"/>
+	    <result column="fakePmiId" property="fakePmiId" javaType="INTEGER"/>
     </collection>
   </resultMap>
   
@@ -43,11 +44,12 @@
   <select id="selectProModuleInfo" resultMap="BaseResultMap">
   	SELECT
 		drdg_project_module.pm_id,
+		drdg_project_module.pm_id as fakePmId,
 		drdg_project_module.pm_name,
 		drdg_project_module.pm_state,
 		drdg_project_module.pm_remarks,
 		drdg_project_module_info.pmi_id,
-		CONCAT(drdg_project_module.pm_id ,drdg_project_module_info.pmi_id) as id,
+		CONCAT(drdg_project_module.pm_id ,drdg_project_module_info.pmi_id) as fakePmiId,
 		drdg_project_module_info.fk_pm_id,
 		drdg_project_module_info.pmi_sequence,
 		drdg_project_module_info.pmi_name,

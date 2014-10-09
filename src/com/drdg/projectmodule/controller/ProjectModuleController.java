@@ -100,7 +100,6 @@ public class ProjectModuleController {
 	@RequestMapping("doUpdateProModuleInfo")
 	@ResponseBody
 	public Result doUpdateProModuleInfo(@ModelAttribute ProjectModuleInfo record){
-		System.out.println(record);
 		Result r = new Result();
 		if(projectModuleService.updateByPrimaryKeySelective(record) > 0){
 			r.setSuccess(true);

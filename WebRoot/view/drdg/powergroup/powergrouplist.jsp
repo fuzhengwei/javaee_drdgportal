@@ -20,7 +20,7 @@
 			</ul>
 		</div>
 		<div data-options="region:'center',split:true"  title="操作控制台"  style="padding:10px">
-		Right Content
+			
 		</div>
 		<div data-options="region:'east',split:true"  title="权限树结构"  style="width:60%;padding:10px">
 		
@@ -31,6 +31,7 @@
 					method: 'post',
 					idField: 'id',
 					treeField: 'pmName',
+					lines: true,
 					panelHeight:'auto'
 					">
 				<thead>
@@ -41,12 +42,49 @@
 					</tr>
 				</thead>
 			</table>
-		
+			<div id="toolbar">
+				<a href="javascript:void(0)" class="easyui-linkbutton"
+					iconCls="icon-add" plain="true" onclick="addBean()";>添加模块</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton"
+					iconCls="icon-edit" plain="true" onclick="updateBean";>修改模块</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton"
+				    iconCls="icon-remove" plain="true" onclick="deleteBean()";>删除模块</a>
+			</div>
+			<div id="dlg-pg" class="easyui-dialog" 
+				style="width: 400px; height: 200px; padding: 10px 20px" closed="false" 
+				buttons="#dlg-buttons-pg">
+				<div class="ftitle">
+					模块信息
+				</div>
+				<form id="fm-pg" method="post" novalidate>
+					<div class="fitem">
+						<label>
+							模块组名称:
+						</label>
+						<input name="pmName" class="easyui-textbox" required="true">
+					</div>
+				</form>
+			</div>
+			<div id="dlg-buttons-pg">
+				<a href="javascript:void(0)" class="easyui-linkbutton c6"
+					iconCls="icon-ok" onclick="saveProModule()";style="width: 90px">Save</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton"
+					iconCls="icon-cancel"
+					onclick="javascript: $('#dlg-pg').dialog('close')";style="width: 90px">Cancel</a>
+			</div>
 	    </div>
 		
 	 </div>
 	</div>
 <script type="text/javascript">
+
+	//add 
+	function addBean(){
+		$('#dlg-pg').dialog('open').dialog('setTitle', 'New User');
+		$('#fm-pg').form('clear');
+	}
+	
+
 	function getChecked(){
 		var nodes = $('#tt').tree('getChecked');
 		var s = '';
@@ -59,4 +97,31 @@
 </script>
 
 </body>
+<style type="text/css">
+#fm {
+	margin: 0;
+	padding: 10px 30px;
+}
+
+.ftitle {
+	font-size: 14px;
+	font-weight: bold;
+	padding: 5px 0;
+	margin-bottom: 10px;
+	border-bottom: 1px solid #ccc;
+}
+
+.fitem {
+	margin-bottom: 5px;
+}
+
+.fitem label {
+	display: inline-block;
+	width: 80px;
+}
+
+.fitem input {
+	width: 160px;
+}
+</style>
 </html>

@@ -10,6 +10,7 @@ public class PowerGroup {
 	private Integer pgId;
 	private String pgName;
 	private String pmName;
+	private String state = "closed";
 
 	private List<ProjectModule> children;
 
@@ -44,6 +45,14 @@ public class PowerGroup {
 
 	public void setChildren(List<ProjectModule> children) {
 		this.children = children;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
 	}
 
 	@Override

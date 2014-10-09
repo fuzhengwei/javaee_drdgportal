@@ -33,9 +33,9 @@
 	drdg_project_module_info.pmi_name
 	FROM
 	drdg_power_group 
-	Inner Join drdg_power_group_info ON drdg_power_group.pg_id = drdg_power_group_info.fk_pg_id
-	Inner Join drdg_project_module_info ON drdg_project_module_info.pmi_id = drdg_power_group_info.fk_pmi_id
-	Inner Join drdg_project_module ON drdg_project_module.pm_id = drdg_project_module_info.fk_pm_id
+	Left Join drdg_power_group_info ON drdg_power_group.pg_id = drdg_power_group_info.fk_pg_id
+	Left Join drdg_project_module_info ON drdg_project_module_info.pmi_id = drdg_power_group_info.fk_pmi_id
+	Left Join drdg_project_module ON drdg_project_module.pm_id = drdg_project_module_info.fk_pm_id
   </select>
   
   <sql id="Base_Column_List" >
